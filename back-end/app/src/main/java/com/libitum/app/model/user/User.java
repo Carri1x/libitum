@@ -1,11 +1,10 @@
-package com.libitum.app.model;
+package com.libitum.app.model.user;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
+import com.libitum.app.model.Role;
 import jakarta.persistence.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +18,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 @Builder
 /*Al tener Builder de lombok podemos hacer esto 
-UserDTO user = UserDTO.builder()
+User user = User.builder()
     .nombre("Álvaro")
     .apellidos("Carrión")
     .email("alvaro@example.com")
@@ -36,18 +35,18 @@ public class User {
 
     @NotBlank
     @Column(nullable = false)
-    private String nombre;
+    private String name;
 
     @NotBlank
     @Column(nullable = false)
-    private String apellidos;
+    private String surname;
 
     @NotBlank
     @Column(nullable = false, unique = true)
     private String email;    
 
     @Column(nullable = true, length = 15)
-    private String telefono;
+    private String phoneNumber;
 
     @NotBlank
     @Column(nullable = false)
@@ -55,23 +54,31 @@ public class User {
 
     @OneToOne
     @JoinColumn(name = "role_id", nullable = false)
-    private Rol rol;
+    private Role role;
 
     //Información pública
-    private String nombreArtistico;
-    private String descripcion;
+    @Column(nullable = true)
+    private String nickname;
+    @Column(nullable = true)
+    private String description;
+    @Column(nullable = true)
     private String avatarUrl;
-    private String ciudad;
-    private String pais;
+    @Column(nullable = true)
+    private String city;
+    @Column(nullable = true)
+    private String country;
 
     // Geo-ubicación actual
+    @Column(nullable = true)
     private Double latitud;
+    @Column(nullable = true)
     private Double longitud;
 
     // Actividad
     @Builder.Default
-    private LocalDateTime fechaRegistro = LocalDateTime.now();
-    private LocalDateTime ultimaConexion;
+    private LocalDateTime registerDate = LocalDateTime.now();
+    @Column(nullable = true)
+    private LocalDateTime lastConnection;
 
     // Red social interna o followers
     @Builder.Default
@@ -81,6 +88,7 @@ public class User {
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "follower_id")
     )
-    private Set<User> seguidores = new HashSet<>();
+    @Column(nullable = true)
+    private Set<User> followers = new HashSet<>();
 
 }

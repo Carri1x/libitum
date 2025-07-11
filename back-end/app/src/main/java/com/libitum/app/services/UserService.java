@@ -1,7 +1,8 @@
 package com.libitum.app.services;
 
-import com.libitum.app.model.User;
+import com.libitum.app.model.user.User;
 import com.libitum.app.repositories.UserRepository;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.Collections;
 
+@NoArgsConstructor
 public class UserService implements UserDetailsService {
     private UserRepository userRepository;
 
@@ -27,12 +29,20 @@ public class UserService implements UserDetailsService {
         //Buscamos el usuario y recogemos su rol creando SimpleGrantedAuthority para luego pasarlo dentro de la clase User de UserDetails
         User user = userRepository.findByName(username)
                 .orElseThrow(()-> new UsernameNotFoundException("User not found"));
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRol().getName().toString());
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().getName().toString());
 
         return new org.springframework.security.core.userdetails.User(
-                user.getNombre(),
+                user.getName(),
                 user.getPassword(),
                 Collections.singleton(authority)
         );
+    }
+
+    public boolean existByName(String name){
+        return userRepository.existByName(name);
+    }
+
+    public void save(User user){
+        userRepository.save(user);
     }
 }

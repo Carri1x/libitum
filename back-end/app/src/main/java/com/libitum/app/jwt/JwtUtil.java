@@ -1,5 +1,6 @@
 package com.libitum.app.jwt;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,5 +30,31 @@ public class JwtUtil {
                 .expiration(new Date( new Date().getTime() + expiration * 1000L))
                 .signWith(key)
                 .compact();
+    }
+
+    public boolean validateToken(String token, UserDetails userDetails){
+        final String userName = extractUserName(token);
+        return (userName.equalsIgnoreCase(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+
+    public boolean isTokenExpired(String token){
+        return extractExpiration(token).before(new Date());
+    }
+
+    public Date extractExpiration(String token){
+        return extractAllClaims(token).getExpiration();
+    }
+
+    public Claims extractAllClaims(String token){
+        SecretKey key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
+        return Jwts.parser()
+                .verifyWith(key)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+    }
+
+    public String extractUserName(String token){
+        return extractAllClaims(token).getSubject();
     }
 }
