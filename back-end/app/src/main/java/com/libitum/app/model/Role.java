@@ -7,6 +7,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Clase que representa un rol de un usuario en la aplicación.
+ * Utilizada para definir los permisos y accesos de los usuarios.
+ * 
+ * @author Álvaro Carrión
+ * @version 1.0
+ * @since 1.0
+ * @apiNote Esta clase es utilizada para representar los roles de usuario en la aplicación.
+ * @category Seguridad
+ * @subcategory Modelo
+ */
 @Data
 @Builder
 @NoArgsConstructor

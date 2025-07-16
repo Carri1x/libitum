@@ -5,8 +5,6 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +15,17 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+/**
+ * Filtro de autenticación JWT que se ejecuta en cada petición.
+ * Comprueba si el token JWT es válido y autentica al usuario.
+ * 
+ * @author Álvaro Carrión
+ * @version 1.0
+ * @since 1.0
+ * @apiNote Este filtro es utilizado para validar los tokens JWT en las peticiones a la API.
+ * @category Seguridad
+ */
+
 //Este @RequiredArgsConstructor hace lo mismo que @Autowired  pero en este caso fomenta la inmutabilidad como cuando se hace iyectando el atributo por el constructor como previamente se hace de normal.
 //@RequiredArgsConstructor Tiene que ser final la variable como -> private final AuthService authService;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -26,6 +35,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private UserService userService;
 
+    /**
+     * Este método se ejecuta en cada petición y comprueba si el token JWT es válido.
+     * Si es válido, se autentica al usuario y se establece en el contexto de seguridad.
+     * 
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     * @param filterChain FilterChain
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain) throws ServletException, IOException {
         final String authorizationHeader = request.getHeader("Authorization");

@@ -7,6 +7,17 @@ import com.libitum.app.model.user.User;
 
 import java.time.LocalDateTime;
 
+/**
+ * Clase de utilidad para mapear entre diferentes objetos relacionados con el usuario.
+ * Proporciona métodos para convertir DTOs a entidades y viceversa.
+ * 
+ * @author Álvaro Carrión
+ * @version 1.0
+ * @since 1.0
+ * @apiNote Esta clase es utilizada para mapear datos entre diferentes capas de la aplicación.
+ * @category Usuario
+ * @subcategory Utilidades
+ */
 public class UserMapper {
     /**
      * Método para crear la Entidad USER en el momento que se registra un usuario

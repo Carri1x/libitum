@@ -13,6 +13,18 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 
+/**
+ * Clase que representa un usuario en la aplicación.
+ * Contiene información básica del usuario, incluyendo su rol, datos de contacto y actividad.
+ * Utilizada para gestionar la autenticación y autorización de usuarios.
+ * 
+ * @author Álvaro Carrión
+ * @version 1.0
+ * @since 1.0
+ * @apiNote Esta clase es utilizada para representar a los usuarios en la aplicación.
+ * @category Usuario
+ * @subcategory Modelo
+ */
 @Entity
 @Table(name = "usuarios")
 @Data

@@ -22,9 +22,26 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
+/**
+ * Clase de configuración de seguridad para la aplicación.
+ * Configura los filtros de seguridad, autenticación y autorización.
+ * 
+ * @author Álvaro Carrión
+ * @version 1.0
+ * @since 1.0
+ * @apiNote Esta clase es utilizada para configurar la seguridad de la aplicación.
+ * @category Seguridad
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+    /**
+     * Método para filtrar todas las rutas que no hayan sido autenticadas a través de un filtro jwt
+     * 
+     * @param http HttpSecurity
+     * @return SecurityFilterChain 
+     * @throws Exception
+     */
     @Bean
     protected SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
         http.cors(Customizer.withDefaults())
@@ -38,30 +55,61 @@ public class SecurityConfig {
                 .addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-
+    /**
+     * Método que devuelve nuestra clase JwtAuthenticationFilter para filtrar las peticiones
+     * @return JwtAuthenticationFilter
+     */
     @Bean
     public JwtAuthenticationFilter jwtTokenFilter(){
         return new JwtAuthenticationFilter();
     }
+    /**
+     * Método que devuelve nuestra clase JwtEntryPoint para manejar las excepciones de autenticación
+     * @return JwtEntryPoint
+     */
     @Bean
     public JwtEntryPoint jwtEntryPoint(){
         return new JwtEntryPoint();
     }
+    /**
+     * Método que devuelve un PasswordEncoder para encriptar las contraseñas
+     * @return PasswordEncoder
+     */
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+    /**
+     * Método que devuelve un UserDetailsService para cargar los usuarios desde la base de datos.
+     * Utiliza nuestra clase UserService para cargar los usuarios.
+     * @return UserDetailsService
+     */
     @Bean
     public UserDetailsService userDetailsService(){
         return new UserService();
     }
+    /**
+     * Método que devuelve un AuthenticationProvider para autenticar los usuarios.
+     * Utiliza el UserDetailsService y el PasswordEncoder para autenticar los usuarios.
+     * 
+     * Este método es necesario para que Spring Security pueda autenticar los usuarios.
+     * Se terminara de configurar en el futuro para incluir más detalles de autenticación.
+     * Y acabará construyendose un AuthenticationManager que se utilizará en el servicio de autenticación AuthService.
+     * @return AuthenticationProvider
+     */
     @Bean
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider(userDetailsService());
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
-
+    /**
+     * Método que devuelve un CorsConfigurationSource para permitir el acceso a la API desde diferentes orígenes.
+     * Utiliza una configuración CORS para permitir todos los métodos y encabezados.
+     * 
+     * Este método es necesario para que la API pueda ser consumida desde diferentes dominios.
+     * @return CorsConfigurationSource
+     */
     @Bean
     CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration configuration = new CorsConfiguration();

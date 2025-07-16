@@ -14,6 +14,17 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * Controlador para la autenticación y registro de usuarios.
+ * Proporciona endpoints para iniciar sesión, registrarse y obtener información de usuarios.
+ * 
+ * @author Álvaro Carrión
+ * @version 1.0
+ * @since 1.0
+ * @apiNote Este controlador es utilizado para gestionar la autenticación y registro de usuarios en las APIs.
+ * @category Usuario
+ * @subcategory Autenticación
+ */
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -28,6 +39,15 @@ public class AuthController {
         this.authService = authService;
     }
 
+    /**
+     * Método que autentica al usuario y devuelve un token JWT
+     * En caso de que el usuario no exista o la contraseña sea incorrecta, se devolverá un mensaje de error (IMPORTANTE 
+     *    QUE EL MENSAJE DE ERROR NO SEA MUY ESPECÍFICO PARA NO DAR PISTAS A UN POSIBLE ATACANTE).
+     * 
+     * @param loginUserDto Datos del usuario a autenticar
+     * @param bindingResult Resultado de la validación de los datos del usuario
+     * @return ResponseEntity con el token JWT o un mensaje de error
+     */
     @PostMapping("/login")
     public ResponseEntity<String> login(@Valid @RequestBody LoginUserDto loginUserDto, BindingResult bindingResult){
         System.out.println("Intentando logear al usuario");
@@ -42,13 +62,19 @@ public class AuthController {
         }
     }
 
+    /**
+     * Método que registra un nuevo usuario en la base de datos
+     * @param registerUserDto Datos del usuario a registrar
+     * @param bindingResult Resultado de la validación de los datos del usuario
+     * @return ResponseEntity con el mensaje de éxito o error
+     */
     @PostMapping("/register")
     public ResponseEntity<String> register(@Valid @RequestBody RegisterUserDto registerUserDto, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return ResponseEntity.badRequest().body("Revise los campos");
         }
         try{
-            authService.registrerUser(registerUserDto);
+            authService.registerUser(registerUserDto);
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(String.format("Hola %s, te has registrado correctamente."
@@ -57,6 +83,10 @@ public class AuthController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    /**
+     * Método que devuelve todos los usuarios de la base de datos
+     * @return List<ResponseUserDto>
+     */
     @GetMapping("/users")
     public List<ResponseUserDto> getAllUsers(){
         return userService.getAllUsers();

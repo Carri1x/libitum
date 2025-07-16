@@ -8,7 +8,7 @@
 - [⚙️ Tecnologías](#️-tecnologías)
 - [🔐 Autenticación](#-autenticación)
 - [📁 Estructura de carpetas](#-estructura-de-carpetas)
-- [♨️ Documentación Java Spring Boot](#-documentación-java-spring-boot)
+- [♨️ Documentación Java Spring Boot](#documentación-java-spring-boot)
 
 ---
 
@@ -37,7 +37,7 @@ Libitum es una aplicación web para dar visibilidad a artistas callejeros. Permi
 
 ---
 ## 📁 Estructura de carpetas
-
+```text
 src/
 └── main/
     └── java/com/libitum/app/
@@ -66,6 +66,7 @@ src/
         │   └── UserService.java
         └── util/
             └── UserMapper.java
+```
 ---
 
-## ♨️ Documentación Java Spring Boot
+## Documentación Java Spring Boot

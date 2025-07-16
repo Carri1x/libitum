@@ -15,6 +15,16 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Servicio de usuario que implementa UserDetailsService para proporcionar detalles del usuario.
+ * Permite la carga de usuarios por nombre y proporciona métodos adicionales para gestionar usuarios.
+ * 
+ * @author Álvaro Carrión
+ * @version 1.0
+ * @since 1.0
+ * @apiNote Este servicio es utilizado para acceder a los detalles del usuario en la aplicación.
+ * @category Usuario
+ */
 @Service
 @NoArgsConstructor
 public class UserService implements UserDetailsService {
@@ -45,16 +55,39 @@ public class UserService implements UserDetailsService {
         );
     }
 
-
+    /**
+     * Método que busca un usuario por su nombre.
+     * 
+     * @param name Nombre del usuario a buscar
+     * @return User encontrado o null si no existe
+     */
     public boolean existByName(String name){
         return userRepository.existsByName(name);
     }
-
-    public void save(User user){
-        userRepository.save(user);
+    /**
+     * Método que busca un usuario por su email.
+     * 
+     * @param email Email del usuario a buscar
+     * @return User encontrado o null si no existe
+     */
+    public boolean existByEmail(String email){
+        return userRepository.existsByEmail(email);
     }
-
+    /**
+     * Método que obtiene todos los usuarios de la base de datos.
+     * 
+     * @return Lista de ResponseUserDto con todos los usuarios
+     */
     public List<ResponseUserDto> getAllUsers(){
         return userRepository.findAll().stream().map(UserMapper::fromUser).toList();
+    }
+
+    /**
+     * Método que guarda un nuevo usuario en la base de datos.
+     * 
+     * @param user Usuario a guardar
+     */
+    public void save(User user){
+        userRepository.save(user);
     }
 }
