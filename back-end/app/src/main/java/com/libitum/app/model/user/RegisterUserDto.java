@@ -1,14 +1,18 @@
 package com.libitum.app.model.user;
 
 import com.libitum.app.model.enums.RoleList;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public final class RegisterUserDto {
     @NotBlank(message = "El nombre es obligatorio")
     private String name;

@@ -19,5 +19,6 @@ public class Role {
     private Long id;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.ORDINAL)
     private RoleList name;
 }

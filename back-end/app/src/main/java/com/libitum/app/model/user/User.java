@@ -43,7 +43,7 @@ public class User {
 
     @NotBlank
     @Column(nullable = false, unique = true)
-    private String email;    
+    private String email;
 
     @Column(nullable = true, length = 15)
     private String phoneNumber;
@@ -52,7 +52,7 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
@@ -84,9 +84,9 @@ public class User {
     @Builder.Default
     @ManyToMany
     @JoinTable(
-        name = "user_followers",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "follower_id")
+            name = "user_followers",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "follower_id")
     )
     @Column(nullable = true)
     private Set<User> followers = new HashSet<>();

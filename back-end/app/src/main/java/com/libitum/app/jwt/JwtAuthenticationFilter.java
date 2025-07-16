@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,26 +18,25 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 //Este @RequiredArgsConstructor hace lo mismo que @Autowired  pero en este caso fomenta la inmutabilidad como cuando se hace iyectando el atributo por el constructor como previamente se hace de normal.
-@RequiredArgsConstructor
-@NoArgsConstructor
+//@RequiredArgsConstructor Tiene que ser final la variable como -> private final AuthService authService;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-
+    @Autowired
     private JwtUtil jwtUtil;
-
+    @Autowired
     private UserService userService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        final String authoritationHeader = request.getHeader("Authoritation");
+    protected void doFilterInternal(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain) throws ServletException, IOException {
+        final String authorizationHeader = request.getHeader("Authorization");
 
         String userName = null;
         String jwt = null;
 
         //Si el header del objeto Authoritation del request no es null y empieza por "Bearer " es porque el token existe en el request... Podemos operar con él
-        if(authoritationHeader != null && authoritationHeader.startsWith("Bearer ")){
+        if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
             //Primero sacamos la palabra clave que va siempre junto al token (Bearer ) 7 chars!!!
-            jwt = authoritationHeader.substring(7);
+            jwt = authorizationHeader.substring(7);
             //Aquí usamos la clase nuestra que hemos creado para extraer el username del token
             userName = jwtUtil.extractUserName(jwt);
         }
@@ -49,7 +50,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
-            filterChain.doFilter(request, response);
         }
+        filterChain.doFilter(request, response);
     }
 }
