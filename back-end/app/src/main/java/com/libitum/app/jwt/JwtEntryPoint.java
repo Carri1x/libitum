@@ -15,9 +15,6 @@ import java.io.IOException;
  * @author Álvaro Carrión
  * @version 1.0
  * @since 1.0
- * @apiNote Esta clase es utilizada para manejar los errores de autenticación no autorizada.
- * @category Seguridad
- * @subcategory JWT
  */
 public class JwtEntryPoint implements AuthenticationEntryPoint {
 

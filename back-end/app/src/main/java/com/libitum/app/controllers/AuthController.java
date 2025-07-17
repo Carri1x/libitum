@@ -21,9 +21,6 @@ import java.util.List;
  * @author Álvaro Carrión
  * @version 1.0
  * @since 1.0
- * @apiNote Este controlador es utilizado para gestionar la autenticación y registro de usuarios en las APIs.
- * @category Usuario
- * @subcategory Autenticación
  */
 @RestController
 @RequestMapping("/auth")

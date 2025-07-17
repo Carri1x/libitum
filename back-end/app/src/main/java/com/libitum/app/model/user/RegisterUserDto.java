@@ -16,9 +16,6 @@ import javax.validation.constraints.NotBlank;
  * @author Álvaro Carrión
  * @version 1.0
  * @since 1.0
- * @apiNote Este DTO es utilizado para el registro de usuario en las APIs.
- * @category Usuario
- * @subcategory Registro
  */
 @Data
 @Builder

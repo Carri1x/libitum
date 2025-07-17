@@ -29,8 +29,6 @@ import java.util.List;
  * @author Álvaro Carrión
  * @version 1.0
  * @since 1.0
- * @apiNote Esta clase es utilizada para configurar la seguridad de la aplicación.
- * @category Seguridad
  */
 @Configuration
 @EnableWebSecurity

@@ -14,9 +14,6 @@ import lombok.NoArgsConstructor;
  * @author Álvaro Carrión
  * @version 1.0
  * @since 1.0
- * @apiNote Este DTO es utilizado para la respuesta de usuario en las APIs.
- * @category Usuario
- * @subcategory Respuesta
  */
 @Data
 @Builder

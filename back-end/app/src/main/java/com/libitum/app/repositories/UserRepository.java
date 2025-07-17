@@ -13,9 +13,6 @@ import java.util.Optional;
  * @author Álvaro Carrión
  * @version 1.0
  * @since 1.0
- * @apiNote Este repositorio es utilizado para acceder a los usuarios en la base de datos.
- * @category Usuario
- * @subcategory Repositorios
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {

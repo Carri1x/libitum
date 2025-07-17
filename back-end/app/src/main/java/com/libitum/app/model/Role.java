@@ -14,9 +14,6 @@ import lombok.NoArgsConstructor;
  * @author Álvaro Carrión
  * @version 1.0
  * @since 1.0
- * @apiNote Esta clase es utilizada para representar los roles de usuario en la aplicación.
- * @category Seguridad
- * @subcategory Modelo
  */
 @Data
 @Builder

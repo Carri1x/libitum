@@ -21,9 +21,6 @@ import javax.validation.constraints.NotBlank;
  * @author Álvaro Carrión
  * @version 1.0
  * @since 1.0
- * @apiNote Esta clase es utilizada para representar a los usuarios en la aplicación.
- * @category Usuario
- * @subcategory Modelo
  */
 @Entity
 @Table(name = "usuarios")

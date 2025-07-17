@@ -22,8 +22,6 @@ import java.io.IOException;
  * @author Álvaro Carrión
  * @version 1.0
  * @since 1.0
- * @apiNote Este filtro es utilizado para validar los tokens JWT en las peticiones a la API.
- * @category Seguridad
  */
 
 //Este @RequiredArgsConstructor hace lo mismo que @Autowired  pero en este caso fomenta la inmutabilidad como cuando se hace iyectando el atributo por el constructor como previamente se hace de normal.

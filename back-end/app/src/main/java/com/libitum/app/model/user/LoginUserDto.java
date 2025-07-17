@@ -14,9 +14,6 @@ import javax.validation.constraints.NotBlank;
  * @author Álvaro Carrión
  * @version 1.0
  * @since 1.0
- * @apiNote Este DTO es utilizado para el inicio de sesión en las APIs.
- * @category Usuario
- * @subcategory Inicio de sesión
  */
 @Data
 @Builder

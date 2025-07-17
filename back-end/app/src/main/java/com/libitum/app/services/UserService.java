@@ -22,8 +22,6 @@ import java.util.List;
  * @author Álvaro Carrión
  * @version 1.0
  * @since 1.0
- * @apiNote Este servicio es utilizado para acceder a los detalles del usuario en la aplicación.
- * @category Usuario
  */
 @Service
 @NoArgsConstructor

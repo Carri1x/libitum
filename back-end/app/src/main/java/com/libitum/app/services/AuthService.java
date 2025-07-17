@@ -22,8 +22,6 @@ import org.springframework.stereotype.Service;
  * @author Álvaro Carrión
  * @version 1.0
  * @since 1.0
- * @apiNote Este servicio es utilizado para autenticar y registrar usuarios en la aplicación.
- * @category Seguridad
  */
 @Service
 public class AuthService {

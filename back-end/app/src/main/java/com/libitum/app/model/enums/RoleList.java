@@ -7,9 +7,6 @@ package com.libitum.app.model.enums;
  * @author Álvaro Carrión
  * @version 1.0
  * @since 1.0
- * @apiNote Este enum es utilizado para definir los roles de usuario en la aplicación.
- * @category Seguridad
- * @subcategory Roles
  * 
  * Los roles son:
  * - ROLE_USER: Rol básico para usuarios registrados.

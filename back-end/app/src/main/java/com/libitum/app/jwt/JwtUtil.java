@@ -19,9 +19,6 @@ import java.util.Date;
  * @author Álvaro Carrión
  * @version 1.0
  * @since 1.0
- * @apiNote Esta clase es parte de la implementación de seguridad basada en JWT (JSON Web Tokens).
- * @category
- * 
  * Esta clase es utilizada para:
  * - Generar un token JWT a partir de la autenticación del usuario.
  * - Validar un token JWT y comprobar su integridad.
