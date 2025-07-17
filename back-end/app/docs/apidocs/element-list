@@ -1,0 +1,10 @@
+com.libitum.app
+com.libitum.app.config
+com.libitum.app.controllers
+com.libitum.app.jwt
+com.libitum.app.model
+com.libitum.app.model.enums
+com.libitum.app.model.user
+com.libitum.app.repositories
+com.libitum.app.services
+com.libitum.app.util
