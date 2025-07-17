@@ -14,9 +14,6 @@ import java.time.LocalDateTime;
  * @author Álvaro Carrión
  * @version 1.0
  * @since 1.0
- * @apiNote Esta clase es utilizada para mapear datos entre diferentes capas de la aplicación.
- * @category Usuario
- * @subcategory Utilidades
  */
 public class UserMapper {
     /**
