@@ -72,6 +72,8 @@ src/
 
 ## Documentación Java Spring Boot
 
+### Api Java del proyecto [***Libitum javadoc documentation***](https://carri1x.github.io/libitum/)
+
 > ¿Quieres saber más? Mira la documentación completa en la [Wiki del proyecto](https://github.com/Carri1x/libitum/wiki)
 
 - [🔐 Autenticación JWT](https://github.com/Carri1x/libitum/wiki/Autenticaci%C3%B3n)
