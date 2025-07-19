@@ -14,6 +14,10 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -33,26 +37,45 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    /**
-     * Método para filtrar todas las rutas que no hayan sido autenticadas a través de un filtro jwt
-     * 
-     * @param http HttpSecurity
-     * @return SecurityFilterChain 
-     * @throws Exception
-     */
-    @Bean
-    protected SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
-        http.cors(Customizer.withDefaults())
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/login","/auth/register")
-                        .permitAll()
-                        .anyRequest()
-                        .authenticated())
-                .httpBasic(Customizer.withDefaults())
-                .exceptionHandling(ex -> ex.authenticationEntryPoint(jwtEntryPoint()))
-                .addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-        return http.build();
-    }
+//    /**
+//     * Método para filtrar todas las rutas que no hayan sido autenticadas a través de un filtro jwt
+//     *
+//     * @param http HttpSecurity
+//     * @return SecurityFilterChain
+//     * @throws Exception
+//     */
+//    @Bean
+//    protected SecurityFilterChain filterChain (HttpSecurity http, OAuth2UserService<OAuth2UserRequest, OAuth2User> customOAuth2UserService) throws Exception {
+//        http.cors(Customizer.withDefaults())
+//                .csrf(AbstractHttpConfigurer::disable)
+//                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/login","/auth/register")
+//                        .permitAll()
+//                        .anyRequest()
+//                        .authenticated())
+//                .oauth2Login(oauth2 -> oauth2
+//                        .userInfoEndpoint(userInfo -> userInfo
+//                                .userService(customOAuth2UserService)
+//                        )
+//                        .successHandler( //Aquí hacer una clase externa que haga estas cosas
+////                        (request, response, authentication) -> {
+////                            // 👇 Cambiado a OidcUser
+////                            OidcUser oidcUser = (OidcUser) authentication.getPrincipal();
+////                            String email = oidcUser.getEmail(); // Método directo disponible
+////                            // O también: String email = oidcUser.getAttribute("email");
+////
+////                            // 1. Busca o crea usuario en base de datos
+////                            // 2. Genera JWT
+////                            String jwt = jwtService.generateToken(email);
+////
+////                            // 3. Devuelve el JWT al frontend
+////                            response.sendRedirect("http://localhost:4200/oauth-success?token=" + jwt);
+//                        })
+//                )
+//                .httpBasic(Customizer.withDefaults())
+//                .exceptionHandling(ex -> ex.authenticationEntryPoint(jwtEntryPoint()))
+//                .addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+//        return http.build();
+//    }
     /**
      * Método que devuelve nuestra clase JwtAuthenticationFilter para filtrar las peticiones
      * @return JwtAuthenticationFilter
