@@ -2,6 +2,7 @@ package com.libitum.app.config;
 
 import com.libitum.app.jwt.JwtAuthenticationFilter;
 import com.libitum.app.jwt.JwtEntryPoint;
+import com.libitum.app.oauth2.OAuth2SuccessHandler;
 import com.libitum.app.services.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,45 +38,33 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-//    /**
-//     * Método para filtrar todas las rutas que no hayan sido autenticadas a través de un filtro jwt
-//     *
-//     * @param http HttpSecurity
-//     * @return SecurityFilterChain
-//     * @throws Exception
-//     */
-//    @Bean
-//    protected SecurityFilterChain filterChain (HttpSecurity http, OAuth2UserService<OAuth2UserRequest, OAuth2User> customOAuth2UserService) throws Exception {
-//        http.cors(Customizer.withDefaults())
-//                .csrf(AbstractHttpConfigurer::disable)
-//                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/login","/auth/register")
-//                        .permitAll()
-//                        .anyRequest()
-//                        .authenticated())
-//                .oauth2Login(oauth2 -> oauth2
-//                        .userInfoEndpoint(userInfo -> userInfo
-//                                .userService(customOAuth2UserService)
-//                        )
-//                        .successHandler( //Aquí hacer una clase externa que haga estas cosas
-////                        (request, response, authentication) -> {
-////                            // 👇 Cambiado a OidcUser
-////                            OidcUser oidcUser = (OidcUser) authentication.getPrincipal();
-////                            String email = oidcUser.getEmail(); // Método directo disponible
-////                            // O también: String email = oidcUser.getAttribute("email");
-////
-////                            // 1. Busca o crea usuario en base de datos
-////                            // 2. Genera JWT
-////                            String jwt = jwtService.generateToken(email);
-////
-////                            // 3. Devuelve el JWT al frontend
-////                            response.sendRedirect("http://localhost:4200/oauth-success?token=" + jwt);
-//                        })
-//                )
-//                .httpBasic(Customizer.withDefaults())
-//                .exceptionHandling(ex -> ex.authenticationEntryPoint(jwtEntryPoint()))
-//                .addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-//        return http.build();
-//    }
+    /**
+     * Método para filtrar todas las rutas que no hayan sido autenticadas a través de un filtro jwt
+     *
+     * @param http HttpSecurity
+     * @return SecurityFilterChain
+     * @throws Exception
+     */
+    @Bean
+    protected SecurityFilterChain filterChain (HttpSecurity http, OAuth2UserService<OAuth2UserRequest, OAuth2User> customOAuth2UserService,
+                                               OAuth2SuccessHandler oAuth2SuccessHandler) throws Exception {
+        http.cors(Customizer.withDefaults())
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/login","/auth/register")
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated())
+                .oauth2Login(oauth2 -> oauth2
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2UserService)
+                        )
+                        .successHandler( //Aquí hacer una clase externa que haga estas cosas
+                                oAuth2SuccessHandler))
+                .httpBasic(Customizer.withDefaults())
+                .exceptionHandling(ex -> ex.authenticationEntryPoint(jwtEntryPoint()))
+                .addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        return http.build();
+    }
     /**
      * Método que devuelve nuestra clase JwtAuthenticationFilter para filtrar las peticiones
      * @return JwtAuthenticationFilter

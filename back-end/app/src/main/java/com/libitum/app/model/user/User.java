@@ -54,8 +54,15 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @NotBlank
+    @Column(nullable = false)
+    private boolean emailVerified;
+
     @Column(nullable = true, length = 15)
     private String phoneNumber;
+
+    @Column(nullable = true)
+    private Boolean phoneNumberVerified;
 
     @NotBlank
     @Column(nullable = false)
@@ -65,6 +72,16 @@ public class User {
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
+    @Column(nullable = true)
+    private String streetAddress;
+    @Column(nullable = true)
+    private String locality;
+    @Column(nullable = true)
+    private String postalCode;
+    @Column(nullable = true)
+    private String region;
+
+
     //Información pública
     @Column(nullable = true)
     private String nickname;
@@ -72,8 +89,6 @@ public class User {
     private String description;
     @Column(nullable = true)
     private String avatarUrl;
-    @Column(nullable = true)
-    private String city;
     @Column(nullable = true)
     private String country;
 
