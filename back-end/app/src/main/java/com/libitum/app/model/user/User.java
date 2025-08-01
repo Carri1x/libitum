@@ -55,8 +55,8 @@ public class User {
     private String email;
 
     @NotBlank
-    @Column(nullable = false)
-    private boolean emailVerified;
+    @Column(nullable = true) //Cambiar a nullable en cuanto se haga OAuth2.0
+    private Boolean emailVerified;
 
     @Column(nullable = true, length = 15)
     private String phoneNumber;

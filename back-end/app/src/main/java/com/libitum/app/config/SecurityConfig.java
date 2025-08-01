@@ -46,20 +46,13 @@ public class SecurityConfig {
      * @throws Exception
      */
     @Bean
-    protected SecurityFilterChain filterChain (HttpSecurity http, OAuth2UserService<OAuth2UserRequest, OAuth2User> customOAuth2UserService,
-                                               OAuth2SuccessHandler oAuth2SuccessHandler) throws Exception {
+    protected SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
         http.cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/login","/auth/register")
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/login","/auth/register","/auth/users")
                         .permitAll()
                         .anyRequest()
                         .authenticated())
-                .oauth2Login(oauth2 -> oauth2
-                        .userInfoEndpoint(userInfo -> userInfo
-                                .userService(customOAuth2UserService)
-                        )
-                        .successHandler( //Aquí hacer una clase externa que haga estas cosas
-                                oAuth2SuccessHandler))
                 .httpBasic(Customizer.withDefaults())
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(jwtEntryPoint()))
                 .addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

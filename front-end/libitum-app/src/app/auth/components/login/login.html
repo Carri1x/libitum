@@ -1,12 +1,12 @@
 <p>login works!</p>
 <div id="div-container">
-    <form [formGroup]="profileForm">
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
         <label for="email">Email: </label>
         <input id="email" type="email" formControlName="email">
 
         <label for="password">Password: </label>
         <input id="password" type="password" formControlName="password">
 
-        <input type="submit" value="Log In">
+        <input type="submit" value="Log In" [disabled]="profileForm.invalid">
     </form>
 </div>
