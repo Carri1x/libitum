@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Controlador para la autenticación y registro de usuarios.
@@ -46,16 +47,18 @@ public class AuthController {
      * @return ResponseEntity con el token JWT o un mensaje de error
      */
     @PostMapping("/login")
-    public ResponseEntity<String> login(@Valid @RequestBody LoginUserDto loginUserDto, BindingResult bindingResult){
+    public ResponseEntity<?> login(@Valid @RequestBody LoginUserDto loginUserDto, BindingResult bindingResult){
         System.out.println("Intentando logear al usuario");
         if(bindingResult.hasErrors()){
-            return ResponseEntity.badRequest().body("Revise sus credenciales");
+            System.out.println("Tiene binding errors-----------------------------------------------------------------------------------");
+            return ResponseEntity.badRequest().body(Map.of("error", "Revise sus credenciales, binding error")); //Quitar información de binding error.
         }
         try{
             String jwt = authService.authenticate(loginUserDto.getEmail(),loginUserDto.getPassword());
-            return ResponseEntity.ok(jwt);
+            return ResponseEntity.ok().body(Map.of("token", jwt, "success", true));
         }catch(Exception e){
-            return ResponseEntity.badRequest().body("Revise sus credenciales.");
+            System.out.println("HA DADO EXCEPCION -------------------------------------------------------------------------------------");
+            return ResponseEntity.badRequest().body(Map.of("error", "Revise sus credenciales exception: "+e)); //Quitar lo de exception y la excepción
         }
     }
 

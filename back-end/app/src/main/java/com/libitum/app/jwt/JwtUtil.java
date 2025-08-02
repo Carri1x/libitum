@@ -26,7 +26,7 @@ import java.util.Date;
  */
 @Component
 public class JwtUtil {
-    /*Estos values van a sincronizarse con el application.properties, pudiendo posteriormente asignar en application.properties el valor de estas variables como
+    /*Estos values van a sincronizarse con el application.yml, pudiendo posteriormente asignar en application.yml el valor de estas variables como
      variables de entorno ya sea dentro del ordenador local o dentro del servidor donde se haya desplegado la aplicación*/
     @Value("${jwt.secret}")
     private String jwtSecret;

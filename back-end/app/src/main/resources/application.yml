@@ -36,5 +36,6 @@ spring:
             user-name-attribute: sub
 
 jwt:
-  secret: clave_super_segura_para_hs384_con_48bytes!!! #Hay que cambiar esta clave porque es ridícula y ponerla como variable de entorno
+  secret: ${JWT_SECRET}
+  #clave_super_segura_para_hs384_con_48bytes!!! #Hay que cambiar esta clave porque es ridícula y ponerla como variable de entorno
   expiration: 3600000 # 1 hora en milisegundos

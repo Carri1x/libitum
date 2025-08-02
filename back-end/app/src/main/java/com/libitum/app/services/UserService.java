@@ -54,7 +54,7 @@ public class UserService implements UserDetailsService {
     }
 
     /**
-     * Método que busca un usuario por su nombre.
+     * Method que busca un usuario por su nombre.
      * 
      * @param name Nombre del usuario a buscar
      * @return User encontrado o null si no existe
@@ -63,7 +63,7 @@ public class UserService implements UserDetailsService {
         return userRepository.existsByName(name);
     }
     /**
-     * Método que busca un usuario por su email.
+     * Method que busca un usuario por su email.
      * 
      * @param email Email del usuario a buscar
      * @return User encontrado o null si no existe
@@ -72,7 +72,7 @@ public class UserService implements UserDetailsService {
         return userRepository.existsByEmail(email);
     }
     /**
-     * Método que obtiene todos los usuarios de la base de datos.
+     * Method que obtiene todos los usuarios de la base de datos.
      * 
      * @return Lista de ResponseUserDto con todos los usuarios
      */
@@ -81,7 +81,7 @@ public class UserService implements UserDetailsService {
     }
 
     /**
-     * Método que guarda un nuevo usuario en la base de datos.
+     * Method que guarda un nuevo usuario en la base de datos.
      * 
      * @param user Usuario a guardar
      */

@@ -1,0 +1,79 @@
+:root{
+    --primary-color:#e5efe6;
+}
+
+/* Estilos generales del contenedor */
+#div-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(138deg, #2b6870, #e5efe6);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 1rem;
+}
+
+/* Estilo del formulario */
+form {
+  background-color: #ffffff;
+  padding: 2rem 2.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* Estilo de etiquetas */
+label {
+  font-weight: 400;
+  color: #333;
+}
+
+/* Estilo de inputs */
+input[type="email"],
+input[type="password"] {
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+  outline: none;
+}
+
+/* Botón de submit */
+input[type="submit"] {
+  padding: 0.9rem;
+  background-color: #4a90e2;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  background-color: #3a78c2;
+}
+
+
+input.invalid {
+  border: 1px solid red;
+  background-color: #ffe6e6;
+}
+
+.error small {
+  color: red;
+  font-size: 0.8em;
+}
+

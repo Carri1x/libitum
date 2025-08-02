@@ -54,7 +54,7 @@ public class UserMapper {
                 .nickname(user.getNickname())
                 .description(user.getDescription())
                 .avatarUrl(user.getAvatarUrl())
-                .city(user.getCity())
+                .city(user.getRegion())
                 .country(user.getCountry())
                 .build();
     }

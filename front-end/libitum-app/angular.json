@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "libitum-web-app": {
+    "libitum-app": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -56,10 +56,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "libitum-web-app:build:production"
+              "buildTarget": "libitum-app:build:production"
             },
             "development": {
-              "buildTarget": "libitum-web-app:build:development"
+              "buildTarget": "libitum-app:build:development"
             }
           },
           "defaultConfiguration": "development"
