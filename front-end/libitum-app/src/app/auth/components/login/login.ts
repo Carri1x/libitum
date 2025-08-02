@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormControl, ReactiveFormsModule, EmailValidator } from '@angular/forms';
+import { Component} from '@angular/core';
+import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-login',
     standalone: true,
     imports: [
+        CommonModule,
         ReactiveFormsModule
     ],
     templateUrl: './login.html',
@@ -13,11 +15,20 @@ import { LoginService } from '../../services/login-service';
 })
 export class Login {
     profileForm = new FormGroup({
-        email: new FormControl(''),
-        password: new FormControl('')
+        email: new FormControl<string>('', [Validators.required, Validators.email]),
+        password: new FormControl<string>('', Validators.required)
     })
 
     constructor(private loginService: LoginService) { }
+
+    get email() {
+        return this.profileForm.get('email')!;//El operador "!" dice esto se que no es null confía en mi.
+    }
+
+    get password() {
+        return this.profileForm.get('password')!;
+    }
+
 
     onSubmit() { //Simplemente enseño los mensajes que devuelve el back-end
         const email = this.profileForm.value.email;
