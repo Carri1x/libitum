@@ -24,8 +24,7 @@ import javax.validation.constraints.NotBlank;
 public final class RegisterUserDto {
     @NotBlank(message = "El nombre es obligatorio")
     private String name;
-    @NotBlank(message = "Los apellidos son obligatorios")
-    private String surname;
+    private String surname; //Opcional
     @Email(message = "El email debe ser válido")
     @NotBlank(message = "El email es obligatorio")
     private String email;

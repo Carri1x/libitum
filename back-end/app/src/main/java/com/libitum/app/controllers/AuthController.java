@@ -48,17 +48,14 @@ public class AuthController {
      */
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginUserDto loginUserDto, BindingResult bindingResult){
-        System.out.println("Intentando logear al usuario");
         if(bindingResult.hasErrors()){
-            System.out.println("Tiene binding errors-----------------------------------------------------------------------------------");
-            return ResponseEntity.badRequest().body(Map.of("error", "Revise sus credenciales, binding error")); //Quitar información de binding error.
+            return ResponseEntity.badRequest().body(Map.of("message", "Revise sus credenciales, binding error")); //Quitar información de binding error.
         }
         try{
             String jwt = authService.authenticate(loginUserDto.getEmail(),loginUserDto.getPassword());
             return ResponseEntity.ok().body(Map.of("token", jwt, "success", true));
         }catch(Exception e){
-            System.out.println("HA DADO EXCEPCION -------------------------------------------------------------------------------------");
-            return ResponseEntity.badRequest().body(Map.of("error", "Revise sus credenciales exception: "+e)); //Quitar lo de exception y la excepción
+            return ResponseEntity.badRequest().body(Map.of("message", "Revise sus credenciales exception: "+e)); //Quitar lo de exception y la excepción
         }
     }
 
@@ -69,18 +66,17 @@ public class AuthController {
      * @return ResponseEntity con el mensaje de éxito o error
      */
     @PostMapping("/register")
-    public ResponseEntity<String> register(@Valid @RequestBody RegisterUserDto registerUserDto, BindingResult bindingResult){
+    public ResponseEntity<Map<String, String>> register(@Valid @RequestBody RegisterUserDto registerUserDto, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return ResponseEntity.badRequest().body("Revise los campos");
+            return ResponseEntity.badRequest().body(Map.of("message","Revise los campos"));
         }
         try{
             authService.registerUser(registerUserDto);
             return ResponseEntity
                     .status(HttpStatus.CREATED)
-                    .body(String.format("Hola %s, te has registrado correctamente."
-                            ,registerUserDto.getName()));
+                    .body(Map.of("message", String.format("Hola %s, te has registrado correctamente." ,registerUserDto.getName())));
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(Map.of("message", "El correo ya existe"));
         }
     }
     /**

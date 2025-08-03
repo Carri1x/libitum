@@ -1,6 +1,6 @@
 import { Component} from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LoginService } from '../../services/login-service';
+import { AuthService } from '../../services/auth-service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -19,7 +19,7 @@ export class Login {
         password: new FormControl<string>('', Validators.required)
     })
 
-    constructor(private loginService: LoginService) { }
+    constructor(private authService: AuthService) { }
 
     get email() {
         return this.profileForm.get('email')!;//El operador "!" dice esto se que no es null confía en mi.
@@ -34,7 +34,7 @@ export class Login {
         const email = this.profileForm.value.email;
         const pass = this.profileForm.value.password;
         alert(`${email}, ${pass}`);
-        this.loginService.login(this.profileForm).subscribe({
+        this.authService.login(this.profileForm).subscribe({
             next: (res: any) => {
                 console.log('Login existoso del backend:', res);
                 localStorage.setItem('jwt', res.token); //Aquí meto como los servlets en "la sesion" el token

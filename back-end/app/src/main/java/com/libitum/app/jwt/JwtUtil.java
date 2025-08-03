@@ -42,7 +42,7 @@ public class JwtUtil {
      */
     public String generateToken (Authentication authentication){
         UserDetails mainUser = (UserDetails) authentication.getPrincipal();
-        //Hay ahora muchas formas deprecated, aun así en stackOverflow he visto algunos ejemplos que ha hecho la gente y este es el que más me a convencido.
+        //Hay ahora muchas formas deprecated, aun así en stackOverflow he visto algunos ejemplos que ha hecho la gente y este es el que más me ha convencido.
         SecretKey key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
         return Jwts.builder().subject(mainUser.getUsername())
                 .issuedAt(new Date())

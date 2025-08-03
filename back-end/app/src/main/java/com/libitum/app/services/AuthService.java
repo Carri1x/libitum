@@ -92,8 +92,13 @@ public class AuthService {
      * @throws IllegalArgumentException Si el nombre de usuario ya existe
      */
     public void registerUser(RegisterUserDto registerUserDto) {
-        if (userService.existByName(registerUserDto.getName())) {
-            throw new IllegalArgumentException("El nombre de usuario ya existe");
+        if (userService.existByEmail(registerUserDto.getEmail())) {
+            throw new IllegalArgumentException(String.format("Este correo: %s, ya existe", registerUserDto.getEmail()));
+        }
+        //Comprobar las credenciales necesarias aun así se hayan comprobado en el front-end
+        if(registerUserDto.getEmail().isBlank() || registerUserDto.getEmail().isEmpty() ||
+            registerUserDto.getPassword().isEmpty() || registerUserDto.getPassword().isBlank()){
+            throw new IllegalArgumentException("Deben insertarse las credenciales necesarias");
         }
         Role role = roleRepository.findByName(RoleList.ROLE_USER)
                 .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
