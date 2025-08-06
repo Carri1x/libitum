@@ -1,18 +1,3 @@
-:root{
-    --primary-color:#e5efe6;
-}
-
-/* Estilos generales del contenedor */
-#div-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  background: linear-gradient(138deg, #2b6870, #e5efe6);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  border-radius: 1rem;
-}
-
 /* Estilo del formulario */
 form {
   background-color: #ffffff;

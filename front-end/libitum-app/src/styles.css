@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+:root{
+    --primary-color: #2b6870;
+    --secondary-color: #e5efe6;
+}
+
+@font-face {
+  font-family: 'Playlist Script';
+  src: url('./assets/fonts/Playlist-script/Playlist Script.otf') format('opentype');
+}
+
+body{
+    margin: 0;
+    height: 100vh;
+}
+
+.body.login-theme {
+  background-color: var(--primary-color);
+}
+
+body.register-theme {
+  background-color: var(--secondary-color);
+}
