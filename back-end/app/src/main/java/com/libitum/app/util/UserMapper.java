@@ -58,4 +58,27 @@ public class UserMapper {
                 .country(user.getCountry())
                 .build();
     }
+
+    public static User updateDataFromRegisterUserDtoToUser(RegisterUserDto registerUserDto, User user){
+        if(!registerUserDto.getName().equalsIgnoreCase(user.getName())){
+            user.setName(registerUserDto.getName());
+        }
+        if(registerUserDto.getNickname() != null){
+            if(!registerUserDto.getNickname().equalsIgnoreCase(user.getNickname())){
+                user.setNickname(registerUserDto.getNickname());
+            }
+        }
+        if(registerUserDto.getSurname() != null){
+            if (!registerUserDto.getSurname().equalsIgnoreCase(user.getSurname())){
+                user.setSurname(registerUserDto.getSurname());
+            }
+        }
+        if(registerUserDto.getPhoneNumber() != null){
+            if (!registerUserDto.getPhoneNumber().equalsIgnoreCase(user.getPhoneNumber())){
+                user.setPhoneNumber(registerUserDto.getPhoneNumber());
+            }
+        }
+        user.setPassword(registerUserDto.getPassword());
+        return user;
+    }
 }

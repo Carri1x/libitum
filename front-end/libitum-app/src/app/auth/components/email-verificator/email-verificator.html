@@ -1,0 +1,6 @@
+<h2>Verifica tu cuenta</h2>
+<p>Copia y pega el código que se ha enviado a tu correo</p>
+<form [formGroup]="emailVerificatorForm" (ngSubmit)="checkEmailTokenVerification()">
+    <input id="tokenEmail" type="text" formControlName="numberVerificator">
+    <input id="verify-button" type="submit" value="Verifica" [disabled]="!emailVerificatorForm.valid">
+</form>

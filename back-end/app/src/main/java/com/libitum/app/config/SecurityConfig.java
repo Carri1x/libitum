@@ -49,7 +49,7 @@ public class SecurityConfig {
     protected SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
         http.cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/login","/auth/register","/auth/users")
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/login","/auth/register","/auth/users","/auth/test","/auth/tokens","auth/verify")
                         .permitAll()
                         .anyRequest()
                         .authenticated())

@@ -18,4 +18,9 @@ export class AuthService {
     register(from: FormGroup): Observable<any> {
         return this.httpClient.post<any>(`${this.apiUrl}/register`,from.value);
     }
+
+    emailTokenVerification(token: String): Observable<any> {
+        return this.httpClient.post<any>(`${this.apiUrl}/verify`,token);
+    }
+
 }

@@ -40,8 +40,9 @@ export class Register {
     onSubmit(){
         this.authService.register(this.registerFrom).subscribe({
             next: (res) => {
-                alert(`El usuario ha sido registado: ${res.message}`);
-                //Se ha registrado el usuario que he insertado pero no me entra aquí
+                console.log("El usuario ha pasado por register.ts onSubmit() -> res: "+ res.message)
+                //Aquí vamos a llevarlo al componente de verificación.
+
             },
             error: (err) => {
                 if(err.status === 400){

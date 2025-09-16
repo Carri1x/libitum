@@ -1,10 +1,14 @@
 package com.libitum.app.controllers;
 
+import com.libitum.app.email.EmailToken;
+import com.libitum.app.email.service.EmailService;
 import com.libitum.app.model.user.LoginUserDto;
 import com.libitum.app.model.user.RegisterUserDto;
 import com.libitum.app.model.user.ResponseUserDto;
+import com.libitum.app.model.user.User;
 import com.libitum.app.services.AuthService;
 import com.libitum.app.services.UserService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +36,8 @@ public class AuthController {
     //Esto solo es para pruebas
     @Autowired
     private UserService userService;
+    @Autowired
+    private EmailService emailService;
 
     public AuthController(AuthService authService){
         this.authService = authService;
@@ -74,11 +80,34 @@ public class AuthController {
             authService.registerUser(registerUserDto);
             return ResponseEntity
                     .status(HttpStatus.CREATED)
-                    .body(Map.of("message", String.format("Hola %s, te has registrado correctamente." ,registerUserDto.getName())));
+                    .body(Map.of("message", String.format("Hola %s, te has registrado correctamente. Mira tu correo electrónico para verificar que existe." ,registerUserDto.getName())));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(Map.of("message", "El correo ya existe"));
         }
     }
+
+    @PostMapping("/verify")
+    public ResponseEntity<Map<String, String>> verifiyEmail(@RequestBody String token){
+        User user;
+        String message = "Error, no se ha podido verificar el correo. Inténtentelo de nuevo";
+        try{
+            user = authService.verifyUser(token);
+            System.out.println("95");
+            if(user.getEmailVerified()){
+                return ResponseEntity
+                        .status(HttpStatus.ACCEPTED)
+                        .body(Map.of("message", "El correo ha sido verificado correctamente."));
+            }
+        } catch (RuntimeException ex){ //No ponemos la IllegalArgumentException porque ya es una RuntimeException con el mismo fin
+            message = ex.getMessage();
+            System.out.println("103");
+        }
+        System.out.println("Pasa por 105");
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(Map.of("message", message));
+    }
+
     /**
      * Método que devuelve todos los usuarios de la base de datos
      * @return List<ResponseUserDto>
@@ -86,6 +115,17 @@ public class AuthController {
     @GetMapping("/users")
     public List<ResponseUserDto> getAllUsers(){
         return userService.getAllUsers();
+    }
+
+    @GetMapping("/tokens")
+    public List<EmailToken> getAllTokens(){
+        return authService.getAllTokens();
+    }
+
+    @GetMapping("/test")
+    public String sendTestEmail(){
+        emailService.sendVerificationEmail("acarrionr99@gmail.com", "123456");
+        return "supuestamente funciona";
     }
 
     /**

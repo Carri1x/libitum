@@ -6,6 +6,11 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/dashboard/dashboard').then(m => m.Dashboard),
         children: [
             {
+                path: '', // redirección por defecto cargue el Login al acceder al dashboard directamente
+                redirectTo: 'login',
+                pathMatch: 'full'
+            },
+            {
                 path: 'login',
                 loadComponent: () => import('./auth/components/login/login').then(m => m.Login)
             },
@@ -14,9 +19,8 @@ export const routes: Routes = [
                 loadComponent: () => import('./auth/components/register/register').then(m => m.Register)
             },
             {
-                path: '', // redirección por defecto cargue el Login al acceder al dashboard directamente
-                redirectTo: 'login',
-                pathMatch: 'full'
+                path: 'email-verificator',
+                loadComponent: () => import('./auth/components/email-verificator/email-verificator').then(m => m.EmailVerificator)
             }
         ]
     }
