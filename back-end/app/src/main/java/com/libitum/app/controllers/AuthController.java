@@ -108,33 +108,4 @@ public class AuthController {
                 .body(Map.of("message", message));
     }
 
-    /**
-     * Método que devuelve todos los usuarios de la base de datos
-     * @return List<ResponseUserDto>
-     */
-    @GetMapping("/users")
-    public List<ResponseUserDto> getAllUsers(){
-        return userService.getAllUsers();
-    }
-
-    @GetMapping("/tokens")
-    public List<EmailToken> getAllTokens(){
-        return authService.getAllTokens();
-    }
-
-    @GetMapping("/test")
-    public String sendTestEmail(){
-        emailService.sendVerificationEmail("acarrionr99@gmail.com", "123456");
-        return "supuestamente funciona";
-    }
-
-    /**
-     * Si se tiene un token válido saldría en Postman la palabra "Autenticado", en caso de que en Postman en el apartado
-     * Authorization -> type -> Bearer Token -> (El token generado), no se inserte un token válido saldrá un 401
-     * @return ResponseEntity
-     */
-    @GetMapping("/bad")
-    public String bad(){
-       return "hola esto debería ir si tienes un token para autenticarte";
-    }
 }

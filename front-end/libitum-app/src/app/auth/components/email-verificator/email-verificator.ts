@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule, FormGroup, Validators, ɵInternalFormsSharedModule } from '@angular/forms';
 import { AuthService } from '../../services/auth-service';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-email-verificator',
+  standalone: true,
   imports: [
     ɵInternalFormsSharedModule,
     ReactiveFormsModule
@@ -17,7 +18,10 @@ export class EmailVerificator {
     numberVerificator: new FormControl('', Validators.required)
   });
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   checkEmailTokenVerification() {
     const token = this.emailVerificatorForm.value.numberVerificator!;
@@ -32,6 +36,7 @@ export class EmailVerificator {
     this.authService.emailTokenVerification(token).subscribe({
       next: (res) => {
         console.log("✅ Has conseguido insertar bien el código que te hemos pasado en el correo");
+        this.router.navigate(['home']);
       },
       error: (err) => {
         console.log("❌ Ha dado algún error: " + (err.error?.message || err.message));

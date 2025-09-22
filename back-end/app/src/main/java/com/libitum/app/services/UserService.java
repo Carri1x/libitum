@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Servicio de usuario que implementa UserDetailsService para proporcionar detalles del usuario.
@@ -76,8 +77,8 @@ public class UserService implements UserDetailsService {
      * 
      * @return Lista de ResponseUserDto con todos los usuarios
      */
-    public List<ResponseUserDto> getAllUsers(){
-        return userRepository.findAll().stream().map(UserMapper::fromUser).toList();
+    public List<User> getAllUsers(){
+        return userRepository.findAll();
     }
 
     /**
@@ -87,5 +88,9 @@ public class UserService implements UserDetailsService {
      */
     public void save(User user){
         userRepository.save(user);
+    }
+
+    public Optional<User> getUserByEmail(String email){
+        return userRepository.getUserByEmail(email);
     }
 }

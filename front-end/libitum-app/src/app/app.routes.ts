@@ -23,5 +23,9 @@ export const routes: Routes = [
                 loadComponent: () => import('./auth/components/email-verificator/email-verificator').then(m => m.EmailVerificator)
             }
         ]
+    },
+    {
+        path: 'home',
+        loadComponent: () => import('./pages/home/home').then(m => m.Home)
     }
 ];
